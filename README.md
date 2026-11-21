@@ -72,10 +72,11 @@ Two complete runs from 21 November 2026, unedited apart from the corrections tha
 
 How thyroid function affects cholesterol; whether thyroid should be brought to a healthy level, by the symptom-based standard used before the TSH test, before a cholesterol-lowering drug is prescribed; and whether TSH itself does harm. [Report](examples/thyroid-cholesterol/REPORT.md).
 
-- Five threads, citing 268 sources: 112 read in full, 148 as abstracts and 8 seen only as search snippets.
+- Six threads, citing 313 sources: 131 read in full, 173 as abstracts and 9 seen only as search snippets.
 - The model's safety filter stopped the first agent on the TSH thread before it wrote anything. The same brief, run on another model, completed. The brief's run notes record both attempts.
-- 34 key claims were checked against their sources. 21 were confirmed as written. 13 had the right figures but needed rewording, mostly for overreach or wrong attribution; all were corrected. None was unsupported.
-- About 4.1 million sub-agent tokens.
+- The sixth thread was added after a reader's comment on the report: it had not separated a suppressed TSH, which usually means too much thyroid hormone, from a low TSH with normal hormone levels, and research on the second group seemed to be missing. The thread checked who the key cohorts excluded and looked for that research, and the report was revised. The run notes record this too.
+- 48 key claims were checked against their sources. 30 were confirmed as written. 18 had the right figures but needed rewording, mostly for overreach or wrong attribution; all were corrected. None was unsupported.
+- About 5.3 million sub-agent tokens, including the stopped thread and two report revisions.
 
 ### [`examples/cholesterol-lowering-mortality/`](examples/cholesterol-lowering-mortality/)
 
@@ -90,7 +91,7 @@ Both folders pass all of the checker's checks. The examples are evidence reviews
 
 ## Cost
 
-Runs are expensive. In the examples, each research thread used 445,000 to 520,000 tokens, each verifier 150,000 to 310,000, and each report 435,000 to 470,000. A run of four or five threads used 3.2 to 4.1 million tokens in all. The brief tells you how many agents will run before anything starts.
+Runs are expensive. In the examples, each research thread used 445,000 to 520,000 tokens, each verifier 150,000 to 310,000, and each report or report revision 435,000 to 560,000. The four-thread run used 3.2 million tokens in all; the thyroid run, with six threads and two revisions, 5.3 million. The brief tells you how many agents will run before anything starts.
 
 ## Known limits
 

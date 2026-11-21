@@ -16,6 +16,7 @@ A public evidence review, released as a worked example with the knowledge-superp
 - Starting position supplied with the request. It is to be tested, not assumed:
   - "Historical" means diagnosis by symptoms and signs before the modern TSH test.
   - There is a body of research showing that TSH is pro-inflammatory, so keeping TSH lower than modern practice does has support from several angles.
+- Further starting position, supplied 2026-11-21 after reading the first report. Also to be tested, not assumed: a TSH below about 0.01 mIU/L most likely reflects hyperthyroidism, which is clearly a risk factor; the harms attributed to a low TSH may be harms of excess thyroid hormone; and no research seems to isolate people with a low TSH who are not hyperthyroid.
 
 ## Deliverable
 Both: a sourced reference, and a decision section written for any adult who has been offered a cholesterol-lowering drug or wonders whether thyroid has been properly ruled out. For public release. Markdown only.
@@ -58,8 +59,11 @@ Produced by the blind-variables pass on 2026-11-21.
 4. `04-thyroid-treatment-outcomes` — What giving thyroid hormone does to cholesterol, heart events and deaths: in overt and subclinical hypothyroidism, in people with symptoms and a normal TSH, and in the trials that used thyroid hormone or thyroid-mimicking drugs as cholesterol treatment; and the harms of over-replacement. Carries the strongest case against thyroid-first treatment by symptoms.
 5. `05-thyroid-check-before-lipid-drugs` — What guidelines and drug labels say about testing and treating thyroid before a cholesterol-lowering drug, how often it is done, how common missed hypothyroidism is among people with raised cholesterol or starting statins, what goes wrong when it is missed, and what test, treat and retest costs in time and money. The direct answer to "should doctors do this first", and the practical side.
 
+6. `06-low-tsh-without-excess-hormone` — What happens to heart disease, atrial fibrillation, fracture and death when TSH is low but free T4 and free T3 are not raised; which studies separate a low TSH from excess thyroid hormone, in untreated and treated people; and what each TSH band usually means. Added 2026-11-21 (see Run notes).
+
 Every thread also reports what has not been studied and why.
 
 ## Run notes
 - 2026-11-21: the first research agent for thread `03-tsh-direct-effects` was stopped by the model's safety filter before it wrote anything, and the first version of the report left question 3 unanswered.
 - 2026-11-21, later: thread 03 was run on a different model with the same brief, plus a paragraph on what the other threads had found. Its six key claims were verified and the report was rewritten to include it.
+- 2026-11-21, later: thread `06-low-tsh-without-excess-hormone` was added after a reader of the report pointed out that it did not separate a suppressed TSH, which usually means excess thyroid hormone, from a low TSH with normal hormone levels, and that research isolating the second group seemed to be missing. The thread checks who the key cohorts excluded and whether their TSH results were adjusted for free T4 or free T3, and looks for outcome studies of a low TSH without raised free hormones.
