@@ -35,6 +35,8 @@ Build a picture of:
 - what the bias note predicted against what was found
 - which claims verification confirmed, corrected, or could not check
 
+Read the threads against each other as well as one by one. In test runs the report writer was the one who caught a result stated for everyone that held only for a subset, and a court ruling described as deciding something it expressly did not, because another thread showed the difference. Keep a list of these as you go; see "Thread corrections found while writing".
+
 ### Step 2: Choose the structure
 
 Decide on a structure that serves the question and the purpose in the brief. Common structures:
@@ -82,6 +84,8 @@ checked and with what result, and a pointer to verification.md.]
 
 **Body sections** should state findings plainly, note confidence where it varies, flag contradictions instead of resolving them artificially, and name what is absent when absence is informative.
 
+**Keep the splits that change the answer.** When a thread breaks a result down by dose, level, band, subgroup or treatment status, and the breakdown changes what a reader should do, the breakdown goes in the report, as a table if that is clearest. If the decision depends on it, it goes in the Summary too. In one test run a thread's table separated a suppressed hormone level, which carried the harm, from a low but measurable one, which mostly did not; the first report kept one sentence, and a reader had to point out the difference.
+
 **What this means for you.** Place it directly after the Summary, because a reader with a decision came for the answer. In it:
 
 - Give recommendations for the person's actual situation as the brief records it. Start from what they already use or have decided. Do not tell them to drop something they have chosen unless the evidence gives a specific reason, and then state the reason and how far it applies.
@@ -95,7 +99,7 @@ checked and with what result, and a pointer to verification.md.]
 - A claim marked *not supported* does not appear.
 - A claim marked *partly* appears in its corrected form.
 - A claim marked *not accessible* or `[unverified]` may appear only with that stated in the sentence ("reported in trade press; not confirmed on the provider's page"), and it cannot be the sole basis of a recommendation.
-- Before delivery, look at every figure, date, price and quotation in the Summary and in "What this means for you". Any that is not already a checked claim gets checked now against its source, and the result is appended to `verification.md`. This is a bounded check of those two sections and is the only new fetching this skill does.
+- Before delivery, look at every figure, date, price and quotation in the Summary and in "What this means for you". Any that is not already a checked claim gets checked now against its source, and the result is appended to the end of the table in `verification.md`, continuing that thread's claim numbering (C04.7 after C04.6) with "checked by the report writer" in the Checked column. Update the count line. This is a bounded check of those two sections and is the only new fetching this skill does.
 
 **Length.** Let the evidence set it. A run of five to seven threads usually supports a report of 3,000 to 6,000 words. The test is whether each thread's load-bearing claims made it in, and whether a reader could act on the report without opening the thread files.
 
@@ -158,9 +162,17 @@ If using git, commit as `Final report: [short title]`.
 
 Present the report to the user with a two or three sentence account of what it found. If the brief's Deliverable names another format (Word, PDF, a one-page summary, a NotebookLM briefing), produce it now from `REPORT.md`, using the skill for that format where one exists, and save it in the same folder. The markdown stays the master copy; regenerate the other formats from it after any revision.
 
+## Thread corrections found while writing
+
+Do not leave a thread statement you know to be wrong or overstated, and do not quietly write around it. Fix the report, then list each one with the file, the passage and the correction. If you are the main session, apply them to the thread files and add a line for each under "Corrections made" in `verification.md`, marked as found by the report writer. If you are a sub-agent, report them back and leave the thread files alone.
+
+## Writing the report in a sub-agent
+
+When the main session hands the report to a sub-agent, the harness may refuse that agent's write to `REPORT.md`. Have the writer save its draft and its extra checked rows to scratch files and report back: what changed, the word count, the claims it checked and their results, and any thread corrections. The main session then reads the Summary and "What this means for you" itself, copies the draft into place, appends the rows to `verification.md`, applies the thread corrections, runs the checker and commits. Brief the writer with the paths to this skill and to `references/slop-patterns.md`, the research folder, the output paths, and the rules the brief sets for the report (public release, no personal information, length).
+
 ## Updating a report after new threads
 
-When deep-research has added threads to a finished run, rewrite the report with the new material integrated. Re-read all the threads, revise the Summary and "What this means for you" in light of everything, and place new findings where they belong in the structure. Do not bolt a section on the end. Update the Sources section and the method note, run the checker, and commit as `Report updated: [what was added]`.
+When deep-research has added threads to a finished run, rewrite the report with the new material integrated. Re-read all the threads, revise the Summary and "What this means for you" in light of everything, and place new findings where they belong in the structure. Do not bolt a section on the end. Where a new thread corrects or narrows an earlier finding, revise that statement everywhere it appears, the Summary included, and say in the body what changed it. Update the Sources section and the method note, adding a line on why the threads were added, run the checker, and commit as `Report updated: [what was added]`.
 
 ## What This Skill Does NOT Do
 

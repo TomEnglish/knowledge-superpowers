@@ -98,6 +98,7 @@ def parse_thread(path):
     present = [s for s in REQUIRED_THREAD_SECTIONS if find_section(sections, s) is not None]
     return {
         "file": name, "num": num, "title": title_of(text, name), "words": len(text.split()),
+        "body_words": len(body_without_sources.split()),
         "sources": sources, "legacy_sources": legacy_sources,
         "cited": CITE_RE.findall(body_without_sources),
         "claims": ["C" + c for c in CLAIM_RE.findall(claims_body)],
@@ -292,6 +293,7 @@ def cmd_check(rdir, as_json=False):
     claims = [c for t in threads for c in t["claims"]]
     thread_urls = set().union(*[t["urls"] for t in threads]) if threads else set()
     words = [t["words"] for t in threads]
+    body_words = [t["body_words"] for t in threads]
     sm_path = os.path.join(rdir, "sources.md")
     sm_ids = set(CITE_RE.findall(read(sm_path))) if os.path.exists(sm_path) else set()
     linked = sum(1 for s in all_sources if s["has_link"])
@@ -357,6 +359,8 @@ def cmd_check(rdir, as_json=False):
         "threads": len(threads),
         "thread_words_total": sum(words),
         "thread_words_min_median_max": [min(words), int(statistics.median(words)), max(words)] if words else [],
+        "thread_body_words_min_median_max": [min(body_words), int(statistics.median(body_words)), max(body_words)] if body_words else [],
+        "thread_body_words_by_file": {t["file"]: t["body_words"] for t in threads},
         "sources_with_ids": len(all_sources),
         "legacy_source_entries": sum(t["legacy_sources"] for t in threads),
         "sources_by_tier": tally(threads, "tier"),
@@ -383,7 +387,8 @@ def cmd_check(rdir, as_json=False):
         mark = {"pass": "PASS", "fail": "FAIL", "n/a": " n/a"}[c["result"]]
         print(f"  {mark}  {c['check']}" + (f"  ({c['detail']})" if c["detail"] else ""))
     print("\nMeasurements")
-    for k in ["threads", "thread_words_total", "thread_words_min_median_max", "sources_with_ids",
+    for k in ["threads", "thread_words_total", "thread_words_min_median_max",
+              "thread_body_words_min_median_max", "sources_with_ids",
               "legacy_source_entries", "sources_by_tier", "sources_by_read", "unique_urls_in_threads",
               "load_bearing_claims", "verification", "report_file", "report_words", "report_id_citations",
               "report_unique_urls", "report_cited_paragraph_share", "report_decision_heading",

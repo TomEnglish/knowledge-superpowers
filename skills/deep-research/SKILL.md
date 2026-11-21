@@ -68,9 +68,11 @@ If the **articulate** and **blind-variables** skills have already run, copy thei
 
 Ask about "Your situation" directly when the topic involves tools, products, treatments or methods the person may already be using. A recommendation that ignores what they already have is the most common way a report loses their trust.
 
+**When the user answers or corrects without saying "go".** Update the brief and treat the reply as confirmation, unless the changes add or drop threads or change the size of the run. In that case show the revised thread list and agent count, and wait. Say in one line that the run is starting.
+
 **When the user says "go" without answering.** The assumptions stand, and they stay labelled as assumptions in `README.md` and in every agent brief. An unconfirmed guess must not turn into a fact about the user on its way to the research agents. Where a finding or recommendation depends on an assumption, the thread and the report say so.
 
-**Close the gate message with what "go" will start**: the folder the work will be saved to, how many research agents will run, and that it then runs through to the report without further questions. This is the user's one chance to object to the size of the run.
+**Close the gate message with what "go" will start**: the folder the work will be saved to, how many research agents and checkers will run, a token estimate, and that it then runs through to the report without further questions. This is the user's one chance to object to the size of the run. Estimate from these measurements on test runs: about 0.5 million tokens per research thread, 0.25 million per checker and 0.5 million for the report, so a four-thread run used about 3.2 million and a five-thread run about 4 million.
 
 ### Designing the threads
 
@@ -80,7 +82,8 @@ Thread design is the highest-leverage decision in the run. Plan three to seven t
 - Include one thread that makes the strongest case against the obvious answer, shaped by the bias note. If the request has several obvious answers, or the counter-case would also have to carry safety and law, split it so no thread is overloaded.
 - Every thread reports what has not been studied and why, in its Gaps section. Add a dedicated thread on absence only when it is central to the question.
 - When the brief names a decision, make sure some thread covers the practical side: costs, effort, availability, and what people who tried it report.
-- When a request holds several questions, keep them in one run if they share sources and their answers inform each other. Write the Question as a short numbered list, and let the thread count go as high as nine. If the parts would each need three or more threads of their own, or have little evidence in common, propose separate runs, or the core question now and the rest as extensions, and let the user choose at the gate.
+- Check every line of "Your situation" and "Deliverable" against the thread list. Each named country, guideline, tool or audience needs a thread or a named place inside one. In one test run the brief put US guidelines first and no thread covered guidelines, so the report had to say it could not answer.
+- When a request holds several questions, keep them in one run if they share sources and their answers inform each other. Write the Question as a short numbered list, and let the thread count go as high as nine. If the parts would each need three or more threads of their own, or have little evidence in common, propose separate runs, or the core question now and the rest as extensions, and let the user choose at the gate. Split runs can share one blind-variables pass when their literatures overlap: copy the parts of the bias map that apply into each brief, and name the companion run in each.
 
 Name the folder with a short lowercase slug, such as `research/ai-model-strategy/`.
 
@@ -98,15 +101,17 @@ Give each thread to its own sub-agent, and launch them all in one message so the
 
 Use an agent type that can both search the web and write files, such as a general-purpose agent. A read-only research agent cannot save its thread file.
 
-Check which search and reading tools this session has before writing the briefs. Names differ between environments (web search, page fetch, a fetch agent, scholarly or PubMed connectors, the user's Drive, a browser), and some need loading first. Name the tools in each brief, with how to load them, because a sub-agent will not go looking. If the user's own documents matter, read them yourself and put the relevant facts in the briefs.
+Check which search and reading tools this session has before writing the briefs. Names differ between environments (web search, page fetch, a fetch agent, scholarly or PubMed connectors, the user's Drive, a browser), and some need loading first. Name the tools in each brief, with how to load them, because a sub-agent will not go looking. For scholarly topics, add the open reading routes listed in the reference file; publisher sites often block automated readers, and agents must not work around bot checks. If the user's own documents matter, read them yourself and put the relevant facts in the briefs.
 
 If sub-agents are not available, research the threads yourself one at a time, using the same template as your checklist, and write each file before starting the next.
 
 When the agents report back:
 
 - Read each summary, then check each file for form: findings carry source IDs, and the Sources and Load-bearing claims sections are there.
-- Send a thin or malformed file back to its agent with specifics. A thread under about 1,000 words is usually too thin; one over about 5,000 usually should have been two threads.
+- Send a thin or malformed file back to its agent with specifics. Judge length on body text, not counting the Sources list: under about 1,500 words is usually too thin, and over about 6,000 usually should have been two threads. In test runs, good threads ran 3,700 to 5,900 words of body text. The checker reports body words for each thread.
 - If an agent found a lead that deserves its own thread, tell the user in one line and add it using the extension steps below.
+
+**When the model's safety filter stops an agent.** Some topics, often in biology, trip a safety filter that stops an agent before it writes anything. Tell the user in one line, and do not redo that thread's research yourself in the main conversation. Carry on with the other threads. Offer to rerun the same brief on another model, which worked in a test run with the brief unchanged. If the user declines, or the rerun is also stopped, record it in the brief's run notes and mark the question unanswered; the report then says what is missing.
 
 ## Step 4: Build the source list
 
@@ -123,15 +128,16 @@ It writes `sources.md` from the Sources sections of the thread files and lists p
 A report is only as reliable as the handful of claims its conclusions rest on, so that is where checking effort goes. Checking a random sample of links does not protect the reader.
 
 1. Collect the claims listed under "Load-bearing claims" in every thread file. Add any other claim you expect the summary or recommendations to lean on.
-2. Have each one checked by an agent that did not write it, using the verifier template in `references/agent-brief.md`. The checker opens the cited source and reports what it says. One checker can take two or three threads' claims.
+2. Have each one checked by an agent that did not write it, using the verifier template in `references/agent-brief.md`. The checker opens the cited source and reports what it says. Use one checker per thread; one can take two small threads. If a claim holds several facts despite the brief, split it into rows before sending it, so one wrong word does not sink the rest.
 3. Write the results to `verification.md` in the format given in that reference file.
 4. Apply the results. Correct any thread file whose claim the source did not support, and record the correction. Where a source could not be opened, mark the claim `[unverified]` in the thread file.
 
-Three kinds of claim need particular care:
+Four kinds of claim need particular care:
 
 - **Figures, dates, prices and quotations** must match the source exactly.
 - **Time-sensitive facts** (prices, plan limits, version numbers, availability, legal status) should be checked on the provider's or authority's own page, with the date checked recorded. Trade-press reports of these go stale and are often wrong.
-- **Absence claims** ("no trial has tested X") cannot be confirmed by a source. Record the searches that were tried and the date.
+- **Absence claims** ("no trial has tested X") cannot be confirmed by a source. Keep them out of the claims table. List them under "Absence claims" in `verification.md`, with the searches that were tried and the date.
+- **Descriptions of who was studied** are where checkers most often find errors: a result given for everyone that applies to a subset, or exclusions left out. Put the corrected wording back into the thread file.
 
 Do this once. A claim that cannot be verified gets labelled and carried forward honestly; do not loop on it.
 
@@ -139,7 +145,7 @@ Do this once. A claim that cannot be verified gets labelled and carried forward 
 
 If using git, commit as `Research complete: [N] threads, [M] claims verified`.
 
-Hand the folder to the **synthesis** skill. Go straight on unless a calling command or skill sets a gate here.
+Hand the folder to the **synthesis** skill. Go straight on unless a calling command or skill sets a gate here. If the report is written by a sub-agent, follow synthesis's "Writing the report in a sub-agent".
 
 Before handing off, check:
 
@@ -157,9 +163,10 @@ Users often read a report and come back with the question it raised. Treat that 
 
 1. Search the existing thread files first. If they already answer the follow-up, answer from them with their source IDs and do no new research.
 2. Otherwise add threads, numbered on from the last file. Brief the agents with the same template, plus a paragraph on what the existing threads already found so they do not repeat it.
+   - When the follow-up challenges a finding ("the report doesn't separate X from Y"), record the challenge in the brief's "Your situation" as a further starting position to be tested, not assumed. Brief the thread to test it and to look as hard for evidence against it as for it. A model tends to confirm the framing it is handed, and a reader's challenge is a framing too.
 3. Update `README.md`: add the new threads to the list with a dated line saying what was added and why. If the follow-up revealed something about the user's situation, add that too.
 4. Rebuild `sources.md`, verify the new load-bearing claims and append them to `verification.md`.
-5. Commit as `Extend: [what was added]`, then hand to synthesis, which rewrites the report so the new material is integrated.
+5. Commit as `Extend: [what was added]`, then hand to synthesis, which rewrites the report so the new material is integrated. Tell synthesis which earlier statements the new thread corrects or narrows, so they are revised wherever they appear, the Summary included.
 
 ## When research changes the question
 

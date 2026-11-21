@@ -84,7 +84,7 @@ Whether lowering cholesterol reduces death from any cause, and not only cardiova
 
 - Four threads, citing 235 sources: 96 read in full, 131 as abstracts and 8 seen only as search snippets.
 - 34 key claims were checked: 24 by verifiers and 10 more by the report writer. 28 were confirmed as written and 6 were corrected. None was unsupported.
-- The research agents' brief had four additions here that are not yet in the skill: one checkable statement per key claim, statements that something is missing kept to the Gaps section, words like "largest" and labels for groups of people taken from the source, and a length guide for body text only. The share of key claims that needed rewording fell from 11 in 24 on the first version of the thyroid run to 5 in 24.
+- This run tried four additions to the research agents' brief, now part of the skill: one checkable statement per key claim, statements that something is missing kept to the Gaps section, words like "largest" and labels for groups of people taken from the source, and a length guide for body text only. The share of key claims that needed rewording fell from 11 in 24 on the first version of the thyroid run to 5 in 24.
 - About 3.2 million sub-agent tokens and about 90 minutes.
 
 Both folders pass all of the checker's checks. The examples are evidence reviews. They are not medical advice.
@@ -96,6 +96,6 @@ Runs are expensive. In the examples, each research thread used 445,000 to 520,00
 ## Known limits
 
 - Many journal sites show bot checks to automated readers. The agents do not work around them; they fall back to PubMed, Europe PMC and the Internet Archive, which often gives an abstract only. Each source records how much of it was read.
-- Research agents write longer thread files than the skill's guide suggests, because the source lists themselves run to two or three thousand words.
-- A model's safety filter can stop a thread on some biology topics. The run continues without it and the report states what is missing. In the thyroid example, the same brief run on another model completed.
+- Thread files are long: 6,000 to 8,000 words each, of which the source lists are 2,000 to 3,000.
+- A model's safety filter can stop a thread on some biology topics. The skill tells the user, carries on with the other threads and offers to rerun the stopped one on another model, which worked in the thyroid example. If no rerun succeeds, the report states what is missing.
 - Two complete runs have been made with this version, both on health questions.
