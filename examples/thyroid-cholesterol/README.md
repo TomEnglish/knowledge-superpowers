@@ -61,4 +61,5 @@ Produced by the blind-variables pass on 2026-11-21.
 Every thread also reports what has not been studied and why.
 
 ## Run notes
-- 2026-11-21: thread `03-tsh-direct-effects` was not completed. Its research agent was stopped by the model's safety filter before it wrote anything, and the work was not redone. Question 3 is therefore unanswered in this run, and the other threads list the leads they met for it under Gaps.
+- 2026-11-21: the first research agent for thread `03-tsh-direct-effects` was stopped by the model's safety filter before it wrote anything, and the first version of the report left question 3 unanswered.
+- 2026-11-21, later: thread 03 was run on a different model with the same brief, plus a paragraph on what the other threads had found. Its six key claims were verified and the report was rewritten to include it.

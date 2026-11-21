@@ -64,29 +64,37 @@ claude --plugin-dir /path/to/knowledge-superpowers
 
 Then type `/deep-dive` followed by your question.
 
-## Example
+## Examples
 
-[`examples/thyroid-cholesterol/`](examples/thyroid-cholesterol/) is a complete run from 21 November 2026, unedited apart from the corrections that verification made. Start with its [`REPORT.md`](examples/thyroid-cholesterol/REPORT.md).
+Two complete runs from 21 November 2026, unedited apart from the corrections that verification made. Both started from one request, which the brief split into two runs. Both used the full `blind-variables` pass and were written for a general reader, with no personal information. Start with each folder's `REPORT.md`.
 
-The question was how thyroid function affects cholesterol, whether thyroid should be brought to a healthy level (by the symptom-based standard used before the TSH test) before a cholesterol-lowering drug is prescribed, and whether TSH is itself harmful. It was run with the full `blind-variables` pass and written for a general reader, with no personal information.
+### [`examples/thyroid-cholesterol/`](examples/thyroid-cholesterol/)
 
-What the run looked like:
+How thyroid function affects cholesterol; whether thyroid should be brought to a healthy level, by the symptom-based standard used before the TSH test, before a cholesterol-lowering drug is prescribed; and whether TSH itself does harm. [Report](examples/thyroid-cholesterol/REPORT.md).
 
-- Five threads were planned and four were completed. The agent for the thread on the direct effects of TSH was stopped by the model's safety filter before it wrote anything. The report says so and leaves that question unanswered.
-- The four threads cite 221 sources: 107 read in full, 108 as abstracts and 6 seen only as search snippets.
-- 24 key claims were checked against their sources. 13 were confirmed as written. 11 had the right figures and needed rewording, mostly for overreach or wrong attribution; all were corrected. None was unsupported.
-- The folder passes all of the checker's checks.
-- It used about 3.4 million tokens across its sub-agents and took about 80 minutes.
+- Five threads, citing 268 sources: 112 read in full, 148 as abstracts and 8 seen only as search snippets.
+- The model's safety filter stopped the first agent on the TSH thread before it wrote anything. The same brief, run on another model, completed. The brief's run notes record both attempts.
+- 34 key claims were checked against their sources. 21 were confirmed as written. 13 had the right figures but needed rewording, mostly for overreach or wrong attribution; all were corrected. None was unsupported.
+- About 4.1 million sub-agent tokens.
 
-The example is an evidence review. It is not medical advice.
+### [`examples/cholesterol-lowering-mortality/`](examples/cholesterol-lowering-mortality/)
+
+Whether lowering cholesterol reduces death from any cause, and not only cardiovascular events: for whom, by how much in absolute terms, and by which means. [Report](examples/cholesterol-lowering-mortality/REPORT.md).
+
+- Four threads, citing 235 sources: 96 read in full, 131 as abstracts and 8 seen only as search snippets.
+- 34 key claims were checked: 24 by verifiers and 10 more by the report writer. 28 were confirmed as written and 6 were corrected. None was unsupported.
+- The research agents' brief had four additions here that are not yet in the skill: one checkable statement per key claim, statements that something is missing kept to the Gaps section, words like "largest" and labels for groups of people taken from the source, and a length guide for body text only. The share of key claims that needed rewording fell from 11 in 24 on the first version of the thyroid run to 5 in 24.
+- About 3.2 million sub-agent tokens and about 90 minutes.
+
+Both folders pass all of the checker's checks. The examples are evidence reviews. They are not medical advice.
 
 ## Cost
 
-Runs are expensive. In the example, each research thread used 450,000 to 480,000 tokens, each verifier 230,000 to 310,000, and the report about 470,000. The brief tells you how many agents will run before anything starts.
+Runs are expensive. In the examples, each research thread used 445,000 to 520,000 tokens, each verifier 150,000 to 310,000, and each report 435,000 to 470,000. A run of four or five threads used 3.2 to 4.1 million tokens in all. The brief tells you how many agents will run before anything starts.
 
 ## Known limits
 
 - Many journal sites show bot checks to automated readers. The agents do not work around them; they fall back to PubMed, Europe PMC and the Internet Archive, which often gives an abstract only. Each source records how much of it was read.
 - Research agents write longer thread files than the skill's guide suggests, because the source lists themselves run to two or three thousand words.
-- A model's safety filter can stop a thread on some biology topics. The run continues without it and the report states what is missing.
-- One complete run has been made with this version.
+- A model's safety filter can stop a thread on some biology topics. The run continues without it and the report states what is missing. In the thyroid example, the same brief run on another model completed.
+- Two complete runs have been made with this version, both on health questions.
