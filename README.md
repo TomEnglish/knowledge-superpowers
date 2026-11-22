@@ -99,3 +99,7 @@ Runs are expensive. In the examples, each research thread used 445,000 to 520,00
 - Thread files are long: 6,000 to 8,000 words each, of which the source lists are 2,000 to 3,000.
 - A model's safety filter can stop a thread on some biology topics. The skill tells the user, carries on with the other threads and offers to rerun the stopped one on another model, which worked in the thyroid example. If no rerun succeeds, the report states what is missing.
 - Two complete runs have been made with this version, both on health questions.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
